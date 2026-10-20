@@ -6,3 +6,4 @@ jupyter==1.1.1
 nbconvert==7.17.2
 ipykernel==7.4.0
 pytest==9.1.1
+streamlit==1.66.0

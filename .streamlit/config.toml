@@ -1,0 +1,3 @@
+[theme]
+# Light theme to match the light chart background
+base = "light"

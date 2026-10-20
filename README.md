@@ -37,6 +37,16 @@ To rerun the whole notebook from the command line and regenerate the charts in `
 jupyter nbconvert --to notebook --execute --inplace notebooks/analysis.ipynb
 ```
 
+### Sector explorer
+
+A small Streamlit page lets you pick a sector and see its growth, rolling volatility, drawdown and the stocks it contains. It uses the same cleaning, metrics and end date as the notebook. Download the data first, then run:
+
+```bash
+streamlit run app.py
+```
+
+Equal weighted sectors are not traded, so the page shows each sector as the growth of 100 invested on 2 January 2019, built from its daily returns.
+
 The notebook fixes the analysis end date at 19 October 2026, so downloading the data again later should give the same results, apart from any corrections Yahoo makes to its past prices.
 
 ## Data
@@ -88,6 +98,8 @@ ftse100-market-analysis/
 │   ├── metrics.py           # returns, volatility, drawdown, sector aggregation
 │   └── plots.py             # reusable chart functions
 ├── figures/                 # charts saved by the notebook
+├── app.py                   # Streamlit sector explorer
+├── .streamlit/config.toml   # light theme for the app
 ├── tests/
 │   ├── test_clean.py
 │   └── test_metrics.py

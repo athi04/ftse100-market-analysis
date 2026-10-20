@@ -74,13 +74,13 @@ def _note(ax, x, y, text, xytext, ha="left"):
     )
 
 
-def plot_index(prices, returns):
+def plot_index(prices, returns, title="FTSE 100 index level"):
     """Index level on top, daily log returns underneath, sharing the date axis."""
     fig, (top, bottom) = plt.subplots(
         2, 1, figsize=(10, 6), sharex=True, gridspec_kw={"height_ratios": [2, 1]}
     )
     top.plot(prices.index, prices, color=BLUE)
-    top.set_title("FTSE 100 index level")
+    top.set_title(title)
     top.yaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: f"{v:,.0f}"))
 
     bottom.plot(returns.index, returns, color=BLUE, lw=0.6)
@@ -91,7 +91,8 @@ def plot_index(prices, returns):
     return fig
 
 
-def plot_volatility(vol, events, median=None):
+def plot_volatility(vol, events, median=None,
+                    title="FTSE 100: rolling 30 day volatility, annualised"):
     """Rolling annualised volatility with labelled events.
 
     `events` is a list of (date, label, (dx, dy)) where (dx, dy) is the label
@@ -106,17 +107,18 @@ def plot_volatility(vol, events, median=None):
                 va="center", ha="left", fontsize=9, color=INK_MUTED)
     for date, label, offset in events:
         _note(ax, date, vol.loc[date], label, offset)
-    ax.set_title("FTSE 100: rolling 30 day volatility, annualised")
+    ax.set_title(title)
     ax.set_ylim(0, None)
     _percent_axis(ax)
     fig.tight_layout()
     return fig
 
 
-def plot_drawdown(dd, worst):
+def plot_drawdown(dd, worst, title="FTSE 100: fall from previous peak", label_recovery=True):
     """Drawdown from running peak, with the worst fall and its recovery marked.
 
-    `worst` is the dict returned by metrics.max_drawdown.
+    `worst` is the dict returned by metrics.max_drawdown. The recovery label is
+    placed for the index chart; set label_recovery=False for other series.
     """
     fig, ax = plt.subplots(figsize=(10, 4.5))
     ax.fill_between(dd.index, dd, 0, color=BLUE_LIGHT, lw=0)
@@ -126,12 +128,12 @@ def plot_drawdown(dd, worst):
     trough = worst["trough_date"]
     _note(ax, trough, worst["depth"],
           f"Worst: {worst['depth']:.1%} on {_day(trough)}", (15, -5))
-    if worst["recovery_date"] is not None:
+    if label_recovery and worst["recovery_date"] is not None:
         rec = worst["recovery_date"]
         # Label placed low and to the left, in the empty area under the 2022 curve
         _note(ax, rec, 0, f"Back to the {worst['peak_date']:%b %Y} high\non {_day(rec)}",
               (-70, -120), ha="center")
-    ax.set_title("FTSE 100: fall from previous peak")
+    ax.set_title(title)
     _percent_axis(ax)
     fig.tight_layout()
     return fig
