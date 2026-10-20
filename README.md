@@ -39,11 +39,13 @@ jupyter nbconvert --to notebook --execute --inplace notebooks/analysis.ipynb
 
 ### Sector explorer
 
-A small Streamlit page lets you pick a sector and see its growth, rolling volatility, drawdown and the stocks it contains. It uses the same cleaning, metrics and end date as the notebook. Download the data first, then run:
+A small Streamlit page lets you pick a sector and see its growth, rolling volatility, drawdown and the stocks it contains. It uses the same cleaning, metrics and end date as the notebook. Run it with:
 
 ```bash
 streamlit run app.py
 ```
+
+If you have already run `python -m src.fetch`, the app uses those files. If not, it downloads the same prices from Yahoo Finance on first load, which takes about half a minute.
 
 Equal weighted sectors are not traded, so the page shows each sector as the growth of 100 invested on 2 January 2019, built from its daily returns.
 
