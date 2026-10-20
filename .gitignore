@@ -9,3 +9,6 @@ __pycache__/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Local editor and preview settings
+.claude/
