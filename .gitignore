@@ -1,0 +1,11 @@
+# Downloaded price data (reproducible via python -m src.fetch)
+data/raw/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
