@@ -2,6 +2,8 @@
 
 An analysis of how the FTSE 100 has behaved since January 2019: its returns, volatility, drawdowns and how risk differs across sectors. Daily prices for the index and its 100 current constituents come from Yahoo Finance. The calculations are small tested Python functions in `src/`, and the notebook `notebooks/analysis.ipynb` walks through the analysis from data to findings. The period covers the March 2020 Covid crash, the 2022 invasion of Ukraine, the September 2022 mini budget and the April 2025 US tariff shock. All figures run to 19 October 2026.
 
+**Try the sector explorer online:** [ftse100-sectors.streamlit.app](https://ftse100-sectors.streamlit.app)
+
 ## Key findings
 
 1. **Covid was the defining shock.** The FTSE 100 fell 35% from its July 2019 high to 23 March 2020, and did not get back to that level until 6 January 2023, almost three years later. Its 30 day volatility peaked at 63%, about six times its normal level of 11%.
@@ -39,13 +41,13 @@ jupyter nbconvert --to notebook --execute --inplace notebooks/analysis.ipynb
 
 ### Sector explorer
 
-A small Streamlit page lets you pick a sector and see its growth, rolling volatility, drawdown and the stocks it contains. It uses the same cleaning, metrics and end date as the notebook. Run it with:
+A small Streamlit page, hosted at [ftse100-sectors.streamlit.app](https://ftse100-sectors.streamlit.app), lets you pick a sector and see its growth, rolling volatility, drawdown and the stocks it contains. It uses the same cleaning, metrics and end date as the notebook. Run it with:
 
 ```bash
 streamlit run app.py
 ```
 
-If you have already run `python -m src.fetch`, the app uses those files. If not, it downloads the same prices from Yahoo Finance on first load, which takes about half a minute.
+If you have already run `python -m src.fetch`, the app uses those files. If not, it downloads the same prices from Yahoo Finance on first load, which takes about half a minute. The hosted app goes to sleep when nobody has used it for a while, so the first visit after a quiet spell can take a minute to wake it.
 
 Equal weighted sectors are not traded, so the page shows each sector as the growth of 100 invested on 2 January 2019, built from its daily returns.
 
